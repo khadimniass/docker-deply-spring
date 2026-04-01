@@ -142,10 +142,10 @@ Architecture réseau: docker-demo-network (Bridge)
 
 ## Commandes récapitulatives
 
-docker-compose up -d       # Lancer
-docker-compose ps          # Voir l'état
-docker-compose logs -f app # Logs
-docker-compose down        # Arrêter
+- docker-compose up -d       # Lancer
+- docker-compose ps          # Voir l'état
+- docker-compose logs -f app # Logs
+- docker-compose down        # Arrêter
 
 ---
 
