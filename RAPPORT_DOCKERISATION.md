@@ -150,4 +150,3 @@ docker-compose down        # Arrêter
 ---
 
 **Status**: 🚀 Production-ready - Prêt pour Keycloak et Angular
-
