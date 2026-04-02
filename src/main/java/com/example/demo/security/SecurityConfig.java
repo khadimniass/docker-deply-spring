@@ -40,8 +40,20 @@ public class SecurityConfig {
             .and()
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                .requestMatchers("/actuator/**").permitAll()
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/*",
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs/swagger-config",
+                    "/api-docs",
+                    "/api-docs/**",
+                    "/api-docs/swagger-config",
+                    "/swagger-resources/**",
+                    "/webjars/**",
+                    "/actuator/**"
+                ).permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
