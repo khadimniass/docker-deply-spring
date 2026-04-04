@@ -35,9 +35,9 @@
 
 ### 2.1 Compilation de l'application
 
-\`\`\`bash
+```bash
 mvn clean package -DskipTests
-\`\`\`
+```
 
 Résultat: JAR de 52 MB généré
 
@@ -59,9 +59,9 @@ Réseau: Les deux services communiquent via le DNS interne Docker
 
 ### 2.4 Profil Spring Boot pour Docker
 
-Fichier: \`src/main/resources/application-docker.properties\`
+Fichier: `src/main/resources/application-docker.properties`
 
-Configuration pour pointer vers \`mysql-docker-demo:3306\`
+Configuration pour pointer vers `mysql-docker-demo:3306`
 
 ---
 
@@ -87,20 +87,20 @@ Résultat: ✅ .env n'apparaît pas dans git status
 ✅ Build optimisé avec cache Maven
 
 ### 4.2 Spring Boot Actuator
-Dépendance ajoutée: \`spring-boot-starter-actuator\`
+Dépendance ajoutée: `spring-boot-starter-actuator`
 
 Endpoints:
-- GET \`/actuator/health\` → Status: UP
-- GET \`/actuator/info\` → Informations app
+- GET `/actuator/health` → Status: UP
+- GET `/actuator/info` → Informations app
 
 ### 4.3 Swagger UI
-Dépendance: \`springdoc-openapi-starter-webmvc-ui\`
+Dépendance: `springdoc-openapi-starter-webmvc-ui`
 
 Endpoints documentés:
-- GET \`/api/users\`
-- POST \`/api/users\`
-- PUT \`/api/users/{id}\`
-- DELETE \`/api/users/{id}\`
+- GET `/api/users`
+- POST `/api/users`
+- PUT `/api/users/{id}`
+- DELETE `/api/users/{id}`
 
 Accès: http://localhost:8080/swagger-ui.html
 
@@ -110,61 +110,61 @@ Accès: http://localhost:8080/swagger-ui.html
 
 ### 5.1 Spring Security + JWT
 Dépendances ajoutées:
-- \`spring-boot-starter-security\`
-- \`jjwt-api\`, \`jjwt-impl\`, \`jjwt-jackson\` (v0.12.3)
+- `spring-boot-starter-security`
+- `jjwt-api`, `jjwt-impl`, `jjwt-jackson` (v0.12.3)
 
 ### 5.2 Architecture d'authentification
 
 **Modèle User amélioré**
-- \`username\` (unique, obligatoire)
-- \`password\` (hashée avec BCrypt)
-- \`name\`, \`email\`
-- \`role\` (USER, ADMIN)
-- \`enabled\` (statut du compte)
+- `username` (unique, obligatoire)
+- `password` (hashée avec BCrypt)
+- `name`, `email`
+- `role` (USER, ADMIN)
+- `enabled` (statut du compte)
 
 **Services d'authentification**
-- \`AuthService\` : Gère register/login
-- \`JwtUtil\` : Génère et valide les JWT
-- \`JwtAuthenticationFilter\` : Filtre les requêtes JWT
-- \`SecurityConfig\` : Configuration Spring Security
+- `AuthService` : Gère register/login
+- `JwtUtil` : Génère et valide les JWT
+- `JwtAuthenticationFilter` : Filtre les requêtes JWT
+- `SecurityConfig` : Configuration Spring Security
 
 ### 5.3 Endpoints d'authentification
 
 | Endpoint | Méthode | Authentification | Description |
 |----------|---------|-----------------|-------------|
-| \`/api/auth/register\` | POST | ❌ Non | Créer un nouveau compte |
-| \`/api/auth/login\` | POST | ❌ Non | Se connecter et récupérer le JWT |
-| \`/api/auth/health\` | GET | ❌ Non | Vérifier le service d'auth |
-| \`/api/users\` | GET | ✅ Oui | Récupérer tous les utilisateurs |
-| \`/api/users/{id}\` | GET | ✅ Oui | Récupérer un utilisateur |
+| `/api/auth/register` | POST | ❌ Non | Créer un nouveau compte |
+| `/api/auth/login` | POST | ❌ Non | Se connecter et récupérer le JWT |
+| `/api/auth/health` | GET | ❌ Non | Vérifier le service d'auth |
+| `/api/users` | GET | ✅ Oui | Récupérer tous les utilisateurs |
+| `/api/users/{id}` | GET | ✅ Oui | Récupérer un utilisateur |
 
 ### 5.4 Flux d'authentification
 
-\`\`\`
+```
 1. Client envoie credentials → POST /api/auth/login
 2. Server valide et génère JWT
 3. Client reçoit JWT (token)
 4. Client envoie JWT dans header Authorization: Bearer <token>
 5. Server valide JWT et authentifie la requête
 6. Client accède aux ressources protégées
-\`\`\`
+```
 
 ---
 
 ## 6. Vérifications et Tests
 
 ### 6.1 État des conteneurs
-\`\`\`bash
+```bash
 docker-compose ps
-\`\`\`
+```
 ✅ Tous les services UP et HEALTHY
 
 ### 6.2 Tests API
-✅ POST \`/api/auth/register\` → Compte créé  
-✅ POST \`/api/auth/login\` → JWT retourné  
-✅ GET \`/api/users\` (avec JWT) → Données retournées  
-✅ GET \`/actuator/health\` → {"status":"UP"}  
-✅ GET \`/swagger-ui.html\` → Interface interactive fonctionnelle  
+✅ POST `/api/auth/register` → Compte créé  
+✅ POST `/api/auth/login` → JWT retourné  
+✅ GET `/api/users` (avec JWT) → Données retournées  
+✅ GET `/actuator/health` → {"status":"UP"}  
+✅ GET `/swagger-ui.html` → Interface interactive fonctionnelle  
 
 ---
 
@@ -175,7 +175,7 @@ docker-compose ps
 | MySQL | mysql:8.0 | UP (healthy) | 3307:3306 |
 | Spring Boot | docker_demo-app | UP (healthy) | 8080:8080 |
 
-Architecture réseau: \`docker-demo-network\` (Bridge)
+Architecture réseau: `docker-demo-network` (Bridge)
 
 ---
 
@@ -183,7 +183,7 @@ Architecture réseau: \`docker-demo-network\` (Bridge)
 
 ### 🚀 Démarrage et arrêt
 
-\`\`\`bash
+```bash
 # Lancer l'application complète
 docker-compose up -d
 
@@ -201,13 +201,13 @@ docker-compose logs -f mysql
 
 # Reconstruire l'image Docker
 docker-compose up -d --build
-\`\`\`
+```
 
 ### 🔐 Tests d'authentification
 
 #### 1. Créer un compte (REGISTER)
 
-\`\`\`bash
+```bash
 curl -X POST http://localhost:8080/api/auth/register \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -216,54 +216,54 @@ curl -X POST http://localhost:8080/api/auth/register \\
     "name": "User One",
     "email": "user1@example.com"
   }'
-\`\`\`
+```
 
 **Réponse attendue:**
-\`\`\`json
+```json
 {
   "token": null,
   "message": "User registered successfully",
   "username": "user1"
 }
-\`\`\`
+```
 
 #### 2. Se connecter (LOGIN)
 
-\`\`\`bash
+```bash
 curl -X POST http://localhost:8080/api/auth/login \\
   -H "Content-Type: application/json" \\
   -d '{
     "username": "user1",
     "password": "password123"
   }'
-\`\`\`
+```
 
 **Réponse attendue:**
-\`\`\`json
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc3NTEzMDQ1NywiZXhwIjoxNzc1MjE2ODU3fQ...",
   "message": "Login successful",
   "username": "user1"
 }
-\`\`\`
+```
 
 #### 3. Utiliser le JWT pour accéder aux ressources protégées
 
-\`\`\`bash
+```bash
 # Remplacez YOUR_JWT_TOKEN par le token reçu lors du login
 curl -X GET http://localhost:8080/api/users \\
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
-\`\`\`
+```
 
 **Exemple avec token réel:**
-\`\`\`bash
+```bash
 curl -X GET http://localhost:8080/api/users \\
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc3NTEzMDQ1NywiZXhwIjoxNzc1MjE2ODU3fQ..."
-\`\`\`
+```
 
 ### 📊 Endpoints utiles
 
-\`\`\`bash
+```bash
 # Swagger UI - Documentation interactive
 open http://localhost:8080/swagger-ui.html
 
@@ -275,22 +275,22 @@ curl http://localhost:8080/actuator/info
 
 # Service d'authentification
 curl http://localhost:8080/api/auth/health
-\`\`\`
+```
 
 ### 🗄️ Accéder à la base de données MySQL
 
 #### Accès direct au conteneur
 
-\`\`\`bash
+```bash
 # Connecter au conteneur MySQL
 docker exec -it mysql-docker-demo mysql -u root -p
 
 # Entrez le mot de passe: rootpassword
-\`\`\`
+```
 
 #### Commandes SQL utiles
 
-\`\`\`sql
+```sql
 -- Voir tous les utilisateurs
 USE docker_demo_db;
 SELECT * FROM users;
@@ -306,31 +306,31 @@ SHOW COLUMNS FROM users;
 
 -- Quitter
 EXIT;
-\`\`\`
+```
 
 #### Via une seule commande
 
-\`\`\`bash
+```bash
 # Afficher tous les utilisateurs
 docker exec mysql-docker-demo mysql -u root -prootpassword docker_demo_db -e "SELECT * FROM users;"
 
 # Voir la structure
 docker exec mysql-docker-demo mysql -u root -prootpassword docker_demo_db -e "DESCRIBE users;"
-\`\`\`
+```
 
 ### 💾 Sauvegarder/restaurer la base de données
 
-\`\`\`bash
+```bash
 # Exporter la base de données
 docker exec mysql-docker-demo mysqldump -u root -prootpassword docker_demo_db > backup.sql
 
 # Importer une base de données
 docker exec -i mysql-docker-demo mysql -u root -prootpassword docker_demo_db < backup.sql
-\`\`\`
+```
 
 ### 🧹 Nettoyage
 
-\`\`\`bash
+```bash
 # Arrêter et supprimer les conteneurs
 docker-compose down
 
@@ -342,7 +342,7 @@ docker rmi docker_demo-app:latest
 
 # Nettoyer complètement
 docker system prune -a
-\`\`\`
+```
 
 ---
 
