@@ -208,8 +208,8 @@ docker-compose up -d --build
 #### 1. Créer un compte (REGISTER)
 
 ```bash
-curl -X POST http://localhost:8080/api/auth/register \\
-  -H "Content-Type: application/json" \\
+curl -X POST http://localhost:8080/api/auth/register
+  -H "Content-Type: application/json"
   -d '{
     "username": "user1",
     "password": "password123",
@@ -230,8 +230,8 @@ curl -X POST http://localhost:8080/api/auth/register \\
 #### 2. Se connecter (LOGIN)
 
 ```bash
-curl -X POST http://localhost:8080/api/auth/login \\
-  -H "Content-Type: application/json" \\
+curl -X POST http://localhost:8080/api/auth/login
+  -H "Content-Type: application/json"
   -d '{
     "username": "user1",
     "password": "password123"
@@ -251,13 +251,13 @@ curl -X POST http://localhost:8080/api/auth/login \\
 
 ```bash
 # Remplacez YOUR_JWT_TOKEN par le token reçu lors du login
-curl -X GET http://localhost:8080/api/users \\
+curl -X GET http://localhost:8080/api/users
   -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
 **Exemple avec token réel:**
 ```bash
-curl -X GET http://localhost:8080/api/users \\
+curl -X GET http://localhost:8080/api/users
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTc3NTEzMDQ1NywiZXhwIjoxNzc1MjE2ODU3fQ..."
 ```
 
